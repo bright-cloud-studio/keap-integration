@@ -9,9 +9,8 @@
  * @filesource
  */
 
-namespace RegistrationInfoMailer;
+namespace KeapIntegration;
 
-use NotificationCenter\Model\Notification;
 
 /**
  * Class registration_info_mailer
@@ -35,46 +34,19 @@ class Handler
      *
      * @param array   $arrData   The data of the new member.
      *
-     * @param \Module $objModule The module and his current settings.
-     *
      * @return void
      */
-    public function sendRegistrationMail($intId, $arrData, $objModule)
+    public function newUserCreated($intId, $arrData, $objModule)
     {
-        // Check if the registration mail should be send.
-        if ($objModule->rim_active == 1) {
             // Store the registration data.
             self::$arrUserOptions       = $arrData;
             self::$arrUserOptions['id'] = $intId;
-
-            // Check if we have all needed data.
-            if (!strlen($objModule->rim_mailtemplate)) {
-                \Controller::log(
-                    'RIM: failed to send the registration mail. The module needs more email information. Please check the module configuration.',
-                    __CLASS__ . '::' . __FUNCTION__,
-                    'ERROR'
-                );
-
-                return;
-            }
-
-            /** @var Notification $objNotification */
-            $objNotification = Notification::findByPk($objModule->rim_mailtemplate);
-            if (null !== $objNotification) {
-                $arrTokens = $arrData;
-                $objNotification->send($arrTokens, $arrData['language']); // Language is optional
-            }
-
-            // Log to tl_log if the user set the option.
-            if ($objModule->rim_do_syslog == 1) {
-                \Controller::log('RIM: a registration info mail has been send. Check your email.log for more information.',
-                    __CLASS__ . '::' . __FUNCTION__,
-                    'GENERAL'
-                );
-            }
-
-            // done :) lets cleanup and get some food, maybe a big pizza or a nice tasty burger.
-            unset($objMail);
-        }
+        
+            // Testing the controller log
+            \Controller::log('Keap Integration: the newUserCreated function has been triggered.',
+                __CLASS__ . '::' . __FUNCTION__,
+                'GENERAL'
+            );
+        
     }
 }
