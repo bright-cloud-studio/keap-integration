@@ -5,7 +5,7 @@
  *
  * Copyright (C) 2022 Bright Cloud Studio
  *
- * @package    bright-cloud-studio/keap-integration
+ * @package    bright-cloud-studio/keap_integration
  * @link       https://www.brightcloudstudio.com/
  * @license    http://opensource.org/licenses/lgpl-3.0.html
 **/
