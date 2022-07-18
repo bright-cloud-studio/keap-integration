@@ -1,16 +1,14 @@
 <?php
 
 /**
- * Bright Cloud Studio's Add User Fields
+ * Bright Cloud Studio's Keap Integration
  *
- * Copyright (C) 2021 Bright Cloud Studio
+ * Copyright (C) 2022 Bright Cloud Studio
  *
- * @package    bright-cloud-studio/add-user-fields
+ * @package    bright-cloud-studio/keap-integration
  * @link       https://www.brightcloudstudio.com/
  * @license    http://opensource.org/licenses/lgpl-3.0.html
 **/
 
 /* Hooks */
-if (\Config::getInstance()->isComplete()) {
-  $GLOBALS['TL_HOOKS']['replaceInsertTags'][] = array('CustomTags\AddUserFieldsTags', 'onReplaceTag');
-}
+$GLOBALS['TL_HOOKS']['createNewUser'][]      = array('RegistrationInfoMailer\Handler', 'sendRegistrationMail');
