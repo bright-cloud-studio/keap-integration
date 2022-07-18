@@ -1,5 +1,5 @@
 {
-    "name":"bright-cloud-studio/keap-integration",
+    "name":"bright-cloud-studio/keap_integration",
     "description":"Sends user information using the Keap API",
     "homepage": "http://brightcloudstudio.com/",
     "keywords":["keap", "integration", "bright", "cloud", "studio"],
@@ -21,7 +21,7 @@
     "extra": {
         "contao": {
             "sources": {
-                "system/modules/keap-integration": "system/modules/keap-integration"
+                "system/modules/keap_integration": "system/modules/keap_integration"
             }
         }
     },
