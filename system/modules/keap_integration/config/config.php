@@ -10,9 +10,5 @@
  * @license    http://opensource.org/licenses/lgpl-3.0.html
 **/
 
-
-/* Register Classes */
-ClassLoader::addClasses(array
-(
-	'KeapIntegration\Handler' => 'system/modules/keap_integration/src/Handler.php'
-));
+/* Hooks */
+$GLOBALS['TL_HOOKS']['createNewUser'][]      = array('KeapIntegration\Handler', 'newUserCreated');
