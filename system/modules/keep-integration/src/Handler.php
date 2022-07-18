@@ -1,10 +1,10 @@
 <?php
 
 /**
- * Contao Open Source CMS
+ * Bright Cloud Studio's Keap Integration
  *
- * @copyright  MEN AT WORK 2016
- * @package    registration_info_mailer
+ * @copyright  2022 Bright Cloud Studio
+ * @package    keap_integration
  * @license    GNU/LGPL
  * @filesource
  */
@@ -13,9 +13,9 @@ namespace KeapIntegration;
 
 
 /**
- * Class registration_info_mailer
+ * Class keap_integration
  *
- * @package RegistrationInfoMailer
+ * @package KeapIntegration
  */
 class Handler
 {
