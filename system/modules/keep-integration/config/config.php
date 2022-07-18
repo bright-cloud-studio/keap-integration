@@ -11,4 +11,4 @@
 **/
 
 /* Hooks */
-$GLOBALS['TL_HOOKS']['createNewUser'][]      = array('RegistrationInfoMailer\Handler', 'sendRegistrationMail');
+$GLOBALS['TL_HOOKS']['createNewUser'][]      = array('KeapIntegration\Handler', 'newUserCreated');
