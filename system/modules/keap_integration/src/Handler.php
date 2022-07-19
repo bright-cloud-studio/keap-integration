@@ -97,10 +97,19 @@ class Handler
                 //$email = 'john.doe4@example.com';
                 $email = $arrData['email'];
 
+                $caught = false;
                 try {
                     $cid = $infusionsoft->contacts()->where('email', $email)->first();
                 } catch (\Infusionsoft\InfusionsoftException $e) {
                     $cid = add($infusionsoft, $email, $arrData);
+                    $caught = true;
+                }
+                if(!caught) {
+                    $contact = Infusionsoft::contacts()->find($cid);
+                    $contact->id = $cid;
+                    $contact->given_name = $arrData['firstname'];
+                    $contact->family_name = $arrData['lastname'];
+                    $contact->save();   
                 }
 
             } catch (\Infusionsoft\TokenExpiredException $e) {
