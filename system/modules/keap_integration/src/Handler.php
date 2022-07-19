@@ -65,7 +65,7 @@ class Handler
                 $_SESSION['token'] = serialize($infusionsoft->getToken());
             }
 
-            function add($infusionsoft, $email)
+            function add($infusionsoft, $email, $arrData)
             {
                 // build out the json data to send to Keap
                 
@@ -78,10 +78,10 @@ class Handler
                 $email1->email = $email;
                 
                 // DATA - Family Name
-                $family_name =  $email;
+                $family_name =  $arrData['lastname'];
                 
                 // DATA - Given Name
-                $given_name =  $email;
+                $given_name =  $arrData['firstname'];
                 
                 // DATA - Lead Source ID
                 $lead_source_id = '19';
@@ -102,7 +102,7 @@ class Handler
                     try {
                         $cid = $infusionsoft->contacts()->where('email', $email)->first();
                     } catch (\Infusionsoft\InfusionsoftException $e) {
-                        $cid = add($infusionsoft, $email);
+                        $cid = add($infusionsoft, $email, $arrData);
                     }
 
                 } catch (\Infusionsoft\TokenExpiredException $e) {
