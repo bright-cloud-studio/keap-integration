@@ -78,10 +78,10 @@ class Handler
                 $email1->email = $email;
                 
                 // DATA - Family Name
-                $family_name =  $arrUserOptions['lastname'];
+                $family_name =  $email;
                 
                 // DATA - Given Name
-                $given_name =  $arrUserOptions['firstname'];
+                $given_name =  $email;
                 
                 // DATA - Lead Source ID
                 $lead_source_id = '19';
