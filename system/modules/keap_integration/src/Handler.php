@@ -85,7 +85,8 @@ class Handler
                 $lead_source_id = '19';
                 
                 // Entire Contact
-                $contact = ['given_name' => $given_name, 'family_name' => $family_name, 'email_addresses' => [$email1], 'contact_type' => $contact_type, 'lead_source_id' => $lead_source_id];
+                //$contact = ['given_name' => $given_name, 'family_name' => $family_name, 'email_addresses' => [$email1], 'contact_type' => $contact_type, 'lead_source_id' => $lead_source_id];
+                $contact = ['given_name' => $given_name, 'family_name' => $family_name, 'email_addresses' => [$email1]];
 
                 return $infusionsoft->contacts()->create($contact);
             }
