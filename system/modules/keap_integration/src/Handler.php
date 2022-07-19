@@ -41,6 +41,8 @@ class Handler
             // Store the registration data.
             self::$arrUserOptions       = $arrData;
             self::$arrUserOptions['id'] = $intId;
+        
+            echo var_dump($arrData);
 
             $infusionsoft = new \Infusionsoft\Infusionsoft(array(
                 'clientId' => 'IoAJ9zFbZnszZHWkTxp7vFj5zg0TII2g',
