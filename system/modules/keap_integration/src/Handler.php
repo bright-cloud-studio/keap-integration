@@ -41,23 +41,11 @@ class Handler
             // Store the registration data.
             self::$arrUserOptions       = $arrData;
             self::$arrUserOptions['id'] = $intId;
-        
-            // Testing the controller log
-            \Controller::log('Keap Integration: the newUserCreated function has been triggered.',
-                __CLASS__ . '::' . __FUNCTION__,
-                'GENERAL'
-            );
-        
-        
-            
-        
-        
-        
-        
+
             $infusionsoft = new \Infusionsoft\Infusionsoft(array(
                 'clientId' => 'IoAJ9zFbZnszZHWkTxp7vFj5zg0TII2g',
                 'clientSecret' => 'xS3oRvWe5kgcXjdG',
-                'redirectUri' => '',
+                'redirectUri' => 'https://framework.brightcloudstudioserver.com/registration-success.html',
             ));
         
             // If the serialized token is available in the session storage, we tell the SDK
@@ -77,10 +65,27 @@ class Handler
 
             function add($infusionsoft, $email)
             {
+                // build out the json data to send to Keap
+                
+                // DATA - Contact Type
+                $contact_type = 'Website Lead - EFS Myths';
+                
+                 // DATA - Email
                 $email1 = new \stdClass;
                 $email1->field = 'EMAIL1';
                 $email1->email = $email;
-                $contact = ['given_name' => 'John', 'family_name' => 'Doe', 'email_addresses' => [$email1]];
+                
+                // DATA - Family Name
+                $family_name = $arrData['lastname'];
+                
+                // DATA - Given Name
+                $given_name = $arrData['firstname'];
+                
+                // DATA - Lead Source ID
+                $lead_source_id = '19';
+                
+                // Entire Contact
+                $contact = ['given_name' => $given_name, 'family_name' => $family_name, 'email_addresses' => [$email1], 'contact_type' => $contact_type, 'lead_source_id' => $lead_source_id];
 
                 return $infusionsoft->contacts()->create($contact);
             }
@@ -88,7 +93,8 @@ class Handler
             if ($infusionsoft->getToken()) {
                 try {
 
-                    $email = 'john.doe4@example.com';
+                    //$email = 'john.doe4@example.com';
+                    $email = $arrData['email'];
 
                     try {
                         $cid = $infusionsoft->contacts()->where('email', $email)->first();
@@ -118,7 +124,11 @@ class Handler
         
         
         
-        
+            // Testing the controller log
+            \Controller::log('Keap Integration: ' . $email . ' sent to Keap using API',
+                __CLASS__ . '::' . __FUNCTION__,
+                'GENERAL'
+            );
         
         
         
