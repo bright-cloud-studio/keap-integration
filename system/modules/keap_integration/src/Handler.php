@@ -99,7 +99,7 @@ class Handler
                 try {
                     $cid = $infusionsoft->contacts()->where('email', $email)->first();
                     if($cid>=0) {
-                        $contact = Infusionsoft::contacts()->find($cid);
+                        $contact = $infusionsoft->contacts()->find($cid);
                         $contact->id = $cid;
                         $contact->given_name = $addData['firstname'];
                         $contact->family_name = $addData['lastname'];
