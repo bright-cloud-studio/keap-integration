@@ -57,7 +57,7 @@ class Handler
             $infusionsoft = new \Infusionsoft\Infusionsoft(array(
                 'clientId' => 'IoAJ9zFbZnszZHWkTxp7vFj5zg0TII2g',
                 'clientSecret' => 'xS3oRvWe5kgcXjdG',
-                'redirectUri' => 'https://framework.brightcloudstudioserver.com/registration.html',
+                'redirectUri' => '',
             ));
         
             // If the serialized token is available in the session storage, we tell the SDK
