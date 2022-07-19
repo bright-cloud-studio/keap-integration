@@ -12,3 +12,4 @@
 
 /* Hooks */
 $GLOBALS['TL_HOOKS']['createNewUser'][]      = array('KeapIntegration\Handler', 'newUserCreated');
+$GLOBALS['TL_HOOKS']['activateAccount'][]    = array('KeapIntegration\Handler', 'accountActivated');
