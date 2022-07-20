@@ -143,5 +143,12 @@ class Handler
     }
     
     
+    public function storeKeapToken($objModule, $token)
+    {
+        // store the passed $token into the keapSecurityToken field inside $objModule
+        
+    }
+    
+    
     
 }
