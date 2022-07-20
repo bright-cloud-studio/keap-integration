@@ -2,8 +2,8 @@
 
 // Modify registration palette
 $GLOBALS['TL_DCA']['tl_module']['palettes']['registration'] = str_replace(
-    'tableless;',
-    'tableless;{keapIntegration_legend},keapCliendID,keapClientSecret,keapRedirectUrl;',
+    'protected;',
+    'protected;{keapIntegration_legend},keapCliendID,keapClientSecret,keapRedirectUrl;',
     $GLOBALS['TL_DCA']['tl_module']['palettes']['registration']
 );
 
