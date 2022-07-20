@@ -32,7 +32,7 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['keapRedirectUrl'] = [
     'inputType'               => 'pageTree',
     'foreignKey'              => 'tl_page.title',
     'eval'                    => array('fieldType'=>'radio'),
-    'sql'                     => "int(10) unsigned NOT NULL default '0'",
+    'sql'                     => "int(10) unsigned NOT NULL default ''",
     'relation'                => array('type'=>'hasOne', 'load'=>'eager')
 ];
 
