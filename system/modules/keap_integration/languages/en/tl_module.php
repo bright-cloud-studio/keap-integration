@@ -12,8 +12,9 @@
  */
 
 // Legends
-$GLOBALS['TL_LANG']['tl_module']['fieldDependencySettings_legend'] = 'Field-dependency-settings';
+$GLOBALS['TL_LANG']['tl_module']['keapIntegration_legend'] = 'Keap Integration Settings';
 
 // Fields
-$GLOBALS['TL_LANG']['tl_module']['mcsUseJavaScript'] = ['Control field dependencies with JavaScript', 'Enables client side setting of dependent fields\' mandatory status (jQuery must be activated in page layout).'];
-$GLOBALS['TL_LANG']['tl_module']['mcsToggleVisibility'] = ['Toggle visibility of dependent fields', 'Hides dependent fields when they are not mandatory.'];
+$GLOBALS['TL_LANG']['tl_module']['keapCliendID'] = ['API Client ID', 'Enter the Keap app\'s Client ID.'];
+$GLOBALS['TL_LANG']['tl_module']['keapClientSecret'] = ['API Client Secret', 'Enter the Keap app\'s Client Secret.'];
+$GLOBALS['TL_LANG']['tl_module']['keapRedirectUrl'] = ['API Redirect URL', 'Enter the URL to be redirected to after successfully passing data to Keap.'];
