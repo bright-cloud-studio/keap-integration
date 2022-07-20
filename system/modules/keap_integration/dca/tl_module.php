@@ -28,11 +28,12 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['keapClientSecret'] = [
 
 $GLOBALS['TL_DCA']['tl_module']['fields']['keapRedirectUrl'] = [
     'label'                   => &$GLOBALS['TL_LANG']['tl_module']['keapRedirectUrl'],
-    'inputType'               => 'text',
-    'default'		          => '',
-    'search'                  => true,
-    'eval'                    => array('mandatory'=>false, 'tl_class'=>'w50'),
-    'sql'                     => "varchar(255) NOT NULL default ''"
+    'exclude'                 => true,
+    'inputType'               => 'pageTree',
+    'foreignKey'              => 'tl_page.title',
+    'eval'                    => array('fieldType'=>'radio'),
+    'sql'                     => "int(10) unsigned NOT NULL default '0'",
+    'relation'                => array('type'=>'hasOne', 'load'=>'eager')
 ];
 
 
