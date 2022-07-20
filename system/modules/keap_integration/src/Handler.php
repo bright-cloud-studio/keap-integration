@@ -38,8 +38,6 @@ class Handler
      */
     public function newUserCreated($intId, $arrData, $objModule)
     {
-        echo '$objModule ID: ' . $objModule['id'];
-        echo '<br>';
         echo var_dump($objModule);
         die();
         
