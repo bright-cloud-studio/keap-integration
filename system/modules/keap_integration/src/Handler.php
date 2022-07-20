@@ -38,6 +38,9 @@ class Handler
      */
     public function newUserCreated($intId, $arrData, $objModule)
     {
+        var_dump($objModule);
+        die();
+        
         // Store the registration data.
         self::$arrUserOptions       = $arrData;
         self::$arrUserOptions['id'] = $intId;
