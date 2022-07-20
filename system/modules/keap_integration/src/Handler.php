@@ -38,19 +38,15 @@ class Handler
      */
     public function newUserCreated($intId, $arrData, $objModule)
     {
-        echo 'ID: ' . $objModule->id;
-        echo 'keapCliendID: ' . $objModule->keapCliendID;
-        echo 'keapClientSecret: ' . $objModule->keapClientSecret;
-        die();
         
         // Store the registration data.
         self::$arrUserOptions       = $arrData;
         self::$arrUserOptions['id'] = $intId;
 
         $infusionsoft = new \Infusionsoft\Infusionsoft(array(
-            'clientId' => 'IoAJ9zFbZnszZHWkTxp7vFj5zg0TII2g',
-            'clientSecret' => 'xS3oRvWe5kgcXjdG',
-            'redirectUri' => 'https://framework.brightcloudstudioserver.com/registration-success.html',
+            'clientId' => $objModule->keapCliendID,
+            'clientSecret' => $objModule->keapClientSecret,
+            'redirectUri' => $objModule->keapRedirectUrl,
         ));
 
         // If the serialized token is available in the session storage, we tell the SDK
