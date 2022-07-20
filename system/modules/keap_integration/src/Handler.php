@@ -38,7 +38,9 @@ class Handler
      */
     public function newUserCreated($intId, $arrData, $objModule)
     {
-        echo $arrData['id'];
+        echo '$objModule ID: ' . $objModule['id'];
+        echo '<br>';
+        echo var_dump($objModule);
         die();
         
         // Store the registration data.
