@@ -99,13 +99,6 @@ class Handler
                 $email = $arrData['email'];
                 try {
                     $cid = $infusionsoft->contacts()->where('email', $email)->first();
-                    if($cid>=0) {
-                        $contact = $infusionsoft->contacts()->find($cid);
-                        $contact->id = $cid;
-                        $contact->given_name = $addData['firstname'];
-                        $contact->family_name = $addData['lastname'];
-                        $contact->save();
-                    }
                 } catch (\Infusionsoft\InfusionsoftException $e) {
                     $cid = add($infusionsoft, $email, $arrData);
                 }
