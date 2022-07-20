@@ -13,7 +13,7 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['keapCliendID'] = [
     'inputType'               => 'text',
     'default'		          => '',
     'search'                  => true,
-    'eval'                    => array('mandatory'=>true, 'tl_class'=>'w50'),
+    'eval'                    => array('mandatory'=>false, 'tl_class'=>'w50'),
     'sql'                     => "varchar(255) NOT NULL default ''"
 ];
 
@@ -22,7 +22,7 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['keapClientSecret'] = [
     'inputType'               => 'text',
     'default'		          => '',
     'search'                  => true,
-    'eval'                    => array('mandatory'=>true, 'tl_class'=>'w50'),
+    'eval'                    => array('mandatory'=>false, 'tl_class'=>'w50'),
     'sql'                     => "varchar(255) NOT NULL default ''"
 ];
 
@@ -31,7 +31,7 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['keapRedirectUrl'] = [
     'inputType'               => 'text',
     'default'		          => '',
     'search'                  => true,
-    'eval'                    => array('mandatory'=>true, 'tl_class'=>'w50'),
+    'eval'                    => array('mandatory'=>false, 'tl_class'=>'w50'),
     'sql'                     => "varchar(255) NOT NULL default ''"
 ];
 
