@@ -38,7 +38,9 @@ class Handler
      */
     public function newUserCreated($intId, $arrData, $objModule)
     {
-        echo $objModule->id;
+        echo 'ID: ' . $objModule->id;
+        echo 'keapCliendID: ' . $objModule->keapCliendID;
+        echo 'keapClientSecret: ' . $objModule->keapClientSecret;
         die();
         
         // Store the registration data.
