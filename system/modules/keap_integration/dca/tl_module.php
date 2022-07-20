@@ -3,7 +3,7 @@
 // Modify registration palette
 $GLOBALS['TL_DCA']['tl_module']['palettes']['registration'] = str_replace(
     'protected;',
-    'protected;{keapIntegration_legend},keapCliendID,keapClientSecret,keapRedirectUrl;',
+    'protected;{keapIntegration_legend},keapCliendID,keapClientSecret,keapRedirectUrl,keapSecurityToken;',
     $GLOBALS['TL_DCA']['tl_module']['palettes']['registration']
 );
 
