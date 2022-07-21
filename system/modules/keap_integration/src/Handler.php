@@ -57,10 +57,8 @@ class Handler
             $infusionsoft->setToken(unserialize($_SESSION['token']));
         }
         */
-        if($objModule->keapAccessToken != '') {
-        	$objToken = $infusionsoft->getToken();
-        	$objToken->setAccessToken($objModule->keapAccessToken);
-        	$objToken->setRefreshToken($objModule->keapRefreshToken);
+        if($objModule->keapJSONToken != '') {
+        	$infusionsoft->setToken(unserialize($objModule->keapJSONToken));
         }
 
         // RETURNING AFTER BEING GIVEN PERMISSION. IF ALL GOES AS PLANNED, THIS WILL ONLY HIT ONCE
@@ -72,6 +70,7 @@ class Handler
             // Save the serialized token to the current session for subsequent requests
             $_SESSION['token'] = serialize($infusionsoft->getToken());
             
+            $this->storeJSONToken($objModule, serialize($infusionsoft->getToken()))
             // save our tokens for future use
             $ourTokens = $infusionsoft->getToken();
             $this->storeRefreshToken($objModule, $ourTokens->refreshToken);
@@ -171,6 +170,13 @@ class Handler
         $strType = '';
         $query = \Database::getInstance()
             ->prepare("UPDATE `tl_module` SET `keapAccessToken` = '".$token."' WHERE `tl_module`.`id` = ".$objModule->id.";")
+            ->execute($strType);
+    }
+    public function storeJSONToken($objModule, $token)
+    {
+        $strType = '';
+        $query = \Database::getInstance()
+            ->prepare("UPDATE `tl_module` SET `keapJSONToken` = '".$token."' WHERE `tl_module`.`id` = ".$objModule->id.";")
             ->execute($strType);
     }
     
