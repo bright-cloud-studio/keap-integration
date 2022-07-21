@@ -49,12 +49,21 @@ class Handler
             'redirectUri' => $objModule->keapRedirectUrl,
         ));
 
+		// STEP TWO. IF WE HAVE A STORED TOKEN THEN USE IT
         // If the serialized token is available in the session storage, we tell the SDK
         // to use that token for subsequent requests.
+        /*
         if (isset($_SESSION['token'])) {
             $infusionsoft->setToken(unserialize($_SESSION['token']));
         }
+        */
+        if($objModule->keapAccessToken != '') {
+        	$objToken = $infusionsoft->getToken();
+        	$objToken->setAccessToken($objModule->keapAccessToken);
+        	$objToken->setRefreshToken($objModule->keapRefreshToken);
+        }
 
+        // RETURNING AFTER BEING GIVEN PERMISSION. IF ALL GOES AS PLANNED, THIS WILL ONLY HIT ONCE
         // If we are returning from Infusionsoft we need to exchange the code for an
         // access token.
         if (isset($_GET['code']) and !$infusionsoft->getToken()) {
@@ -63,8 +72,10 @@ class Handler
             // Save the serialized token to the current session for subsequent requests
             $_SESSION['token'] = serialize($infusionsoft->getToken());
             
-            // store the passed $token into the keapSecurityToken field inside $objModule
-            $this->storeKeapToken($objModule, serialize($infusionsoft->getToken()));
+            // save our tokens for future use
+            $ourTokens = $infusionsoft->getToken();
+            $this->storeRefreshToken($objModule, $ourTokens->refreshToken);
+            $this->storeAccessToken($objModule, $ourTokens->accessToken);
         }
 
         function add($infusionsoft, $email, $arrData)
@@ -95,6 +106,7 @@ class Handler
             return $infusionsoft->contacts()->create($contact);
         }
 
+		// STEP THREE - WE HAVE A TOKEN
         if ($infusionsoft->getToken()) {
             try {
 
