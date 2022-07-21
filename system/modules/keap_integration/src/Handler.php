@@ -38,7 +38,7 @@ class Handler
      */
     public function newUserCreated($intId, $arrData, $objModule)
     {
-        $objModule->__set('keapSecurityToken','test123');
+        $objModule->keapSecurityToken = "test123";
         
         // Store the registration data.
         self::$arrUserOptions       = $arrData;
