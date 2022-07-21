@@ -38,7 +38,13 @@ class Handler
      */
     public function newUserCreated($intId, $arrData, $objModule)
     {
-        $objModule->keapSecurityToken = "test123";
+        
+        // store the passed $token into the keapSecurityToken field inside $objModule
+        $token = "1234321";
+        $strType = '';
+        $query = \Database::getInstance()
+            ->prepare("UPDATE `tl_module` SET `keapSecurityToken` = '".$token."' WHERE `tl_module`.`id` = ".$objModule->id.";")
+            ->execute($strType);
         
         // Store the registration data.
         self::$arrUserOptions       = $arrData;
