@@ -3,7 +3,7 @@
 // Modify registration palette
 $GLOBALS['TL_DCA']['tl_module']['palettes']['registration'] = str_replace(
     'protected;',
-    'protected;{keapIntegration_legend},keapCliendID,keapClientSecret,keapRedirectUrl,keapRefreshToken,keapAccessToken;',
+    'protected;{keapIntegration_legend},keapCliendID,keapClientSecret,keapRedirectUrl,keapRefreshToken,keapAccessToken,keapJSONToken;',
     $GLOBALS['TL_DCA']['tl_module']['palettes']['registration']
 );
 
@@ -51,6 +51,14 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['keapAccessToken'] = [
     'search'                  => true,
     'eval'                    => array('mandatory'=>false, 'tl_class'=>'clr'),
     'sql'                     => "varchar(255) NOT NULL default ''"
+];
+$GLOBALS['TL_DCA']['tl_module']['fields']['keapJSONToken'] = [
+    'label'                   => &$GLOBALS['TL_LANG']['tl_module']['keapJSONToken'],
+    'inputType'               => 'text',
+    'default'		          => '',
+    'search'                  => true,
+    'eval'                    => array('mandatory'=>false, 'tl_class'=>'clr'),
+    'sql'                     => "varchar(1000) NOT NULL default ''"
 ];
 
 
