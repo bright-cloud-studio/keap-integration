@@ -39,15 +39,6 @@ class Handler
     public function newUserCreated($intId, $arrData, $objModule)
     {
         
-        // store the passed $token into the keapSecurityToken field inside $objModule
-        $token = "1234321";
-        $strType = '';
-        $query = \Database::getInstance()
-            ->prepare("UPDATE `tl_module` SET `keapSecurityToken` = '".$token."' WHERE `tl_module`.`id` = ".$objModule->id.";")
-            ->execute($strType);
-        
-        storeKeapToken($objModule, $token);
-        
         // Store the registration data.
         self::$arrUserOptions       = $arrData;
         self::$arrUserOptions['id'] = $intId;
@@ -71,6 +62,9 @@ class Handler
 
             // Save the serialized token to the current session for subsequent requests
             $_SESSION['token'] = serialize($infusionsoft->getToken());
+            
+            // store the passed $token into the keapSecurityToken field inside $objModule
+            $this->storeKeapToken($objModule, serialize($infusionsoft->getToken()));
         }
 
         function add($infusionsoft, $email, $arrData)
@@ -126,6 +120,7 @@ class Handler
 
             // Save the serialized token to the current session for subsequent requests
             $_SESSION['token'] = serialize($infusionsoft->getToken());
+            
         } else {
             echo '<a href="' . $infusionsoft->getAuthorizationUrl() . '">Click here to authorize</a>';
         }
@@ -155,9 +150,12 @@ class Handler
     public function storeKeapToken($objModule, $token)
     {
         // store the passed $token into the keapSecurityToken field inside $objModule
+        $strType = '';
+        $query = \Database::getInstance()
+            ->prepare("UPDATE `tl_module` SET `keapSecurityToken` = '".$token."' WHERE `tl_module`.`id` = ".$objModule->id.";")
+            ->execute($strType);
         
     }
-    
     
     
 }
