@@ -147,14 +147,19 @@ class Handler
     }
     
     
-    public function storeKeapToken($objModule, $token)
+    public function storeRefreshToken($objModule, $token)
     {
-        // store the passed $token into the keapSecurityToken field inside $objModule
         $strType = '';
         $query = \Database::getInstance()
-            ->prepare("UPDATE `tl_module` SET `keapSecurityToken` = '".$token."' WHERE `tl_module`.`id` = ".$objModule->id.";")
+            ->prepare("UPDATE `tl_module` SET `keapRefreshToken` = '".$token."' WHERE `tl_module`.`id` = ".$objModule->id.";")
             ->execute($strType);
-        
+    }
+    public function storeAccessToken($objModule, $token)
+    {
+        $strType = '';
+        $query = \Database::getInstance()
+            ->prepare("UPDATE `tl_module` SET `keapAccessToken` = '".$token."' WHERE `tl_module`.`id` = ".$objModule->id.";")
+            ->execute($strType);
     }
     
     
