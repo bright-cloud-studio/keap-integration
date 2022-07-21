@@ -46,6 +46,8 @@ class Handler
             ->prepare("UPDATE `tl_module` SET `keapSecurityToken` = '".$token."' WHERE `tl_module`.`id` = ".$objModule->id.";")
             ->execute($strType);
         
+        storeKeapToken($objModule, $token);
+        
         // Store the registration data.
         self::$arrUserOptions       = $arrData;
         self::$arrUserOptions['id'] = $intId;
