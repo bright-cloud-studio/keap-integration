@@ -22,14 +22,14 @@ class Handler
         self::$arrUserOptions       = $arrData;
         self::$arrUserOptions['id'] = $intId;
 
-		// Retrieve the token from your saved file
+	// Retrieve the token from your saved file
     	$token_file = file_get_contents('token.txt');
     	$token = unserialize($token_file);
     
     	$infusionsoft = new \Infusionsoft\Infusionsoft(array(
     		'clientId'     => 'IoAJ9zFbZnszZHWkTxp7vFj5zg0TII2g',
     		'clientSecret' => 'xS3oRvWe5kgcXjdG',
-    		'redirectUri'  => 'https://framework.brightcloudstudioserver.com/keap_auth.php',
+    		'redirectUri'  => 'https://framework.brightcloudstudioserver.com/registration.html',
     	));
     
     	$infusionsoft->setToken($token);
