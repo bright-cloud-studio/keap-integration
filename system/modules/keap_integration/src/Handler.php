@@ -23,15 +23,26 @@ class Handler
         self::$arrUserOptions['id'] = $intId;
 
 		// STEP 1 - set up infusionsoft
-        $infusionsoft = new \Infusionsoft\Infusionsoft(array(
-            'clientId' => $objModule->keapCliendID,
-            'clientSecret' => $objModule->keapClientSecret,
-            'redirectUri' => $objModule->keapRedirectUrl,
-        ));
+        //$infusionsoft = new \Infusionsoft\Infusionsoft(array(
+         //   'clientId' => $objModule->keapCliendID,
+         //   'clientSecret' => $objModule->keapClientSecret,
+         //   'redirectUri' => $objModule->keapRedirectUrl,
+        //));
 
 		// STEP 2 - if there us a token, apply it
-		if($objModule->keapJSONToken != '')
-			$infusionsoft->setToken($objModule->keapJSONToken);
+		//$infusionsoft->setToken(unserialize($objModule->keapJSONToken));
+		
+		// Retrieve the token from your saved file
+    	$token_file = file_get_contents('/token.txt');
+    	$token = unserialize($token_file);
+    
+    	$infusionsoft = new \Infusionsoft\Infusionsoft(array(
+    		'clientId'     => 'IoAJ9zFbZnszZHWkTxp7vFj5zg0TII2g',
+    		'clientSecret' => 'xS3oRvWe5kgcXjdG',
+    		'redirectUri'  => 'https://framework.brightcloudstudioserver.com/keap_auth.php',
+    	));
+    
+    	$infusionsoft->setToken($token);
 
 
         function add($infusionsoft, $email, $arrData)
@@ -61,6 +72,7 @@ class Handler
 
 		// STEP 3 - WE HAVE A TOKEN
         if ($infusionsoft->getToken()) {
+            echo 'WE HAVE A TOKEN';
             try {
                 $email = $arrData['email'];
                 try {
@@ -69,10 +81,10 @@ class Handler
                     $cid = add($infusionsoft, $email, $arrData);
                 }
             } catch (\Infusionsoft\TokenExpiredException $e) {
-		// our token is expired
-		echo "TOKEN EXPIRED";
-		//$infusionsoft->refreshAccessToken();
-		//$cid = add($infusionsoft);
+    		// our token is expired
+    		echo "TOKEN EXPIRED";
+    		$infusionsoft->refreshAccessToken();
+    		$cid = add($infusionsoft);
 	    }
 
             $contact = $infusionsoft->contacts()->with('custom_fields')->find($cid->id);
