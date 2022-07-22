@@ -22,18 +22,8 @@ class Handler
         self::$arrUserOptions       = $arrData;
         self::$arrUserOptions['id'] = $intId;
 
-		// STEP 1 - set up infusionsoft
-        //$infusionsoft = new \Infusionsoft\Infusionsoft(array(
-         //   'clientId' => $objModule->keapCliendID,
-         //   'clientSecret' => $objModule->keapClientSecret,
-         //   'redirectUri' => $objModule->keapRedirectUrl,
-        //));
-
-		// STEP 2 - if there us a token, apply it
-		//$infusionsoft->setToken(unserialize($objModule->keapJSONToken));
-		
 		// Retrieve the token from your saved file
-    	$token_file = file_get_contents('/token.txt');
+    	$token_file = file_get_contents('token.txt');
     	$token = unserialize($token_file);
     
     	$infusionsoft = new \Infusionsoft\Infusionsoft(array(
@@ -91,7 +81,11 @@ class Handler
 
             var_dump($contact->toArray());
             
-        } 
+            // Save the serialized token to the current session for subsequent requests
+            $_SESSION['token'] = serialize($infusionsoft->getToken());
+        } else {
+            echo '<a href="' . $infusionsoft->getAuthorizationUrl() . '">Click here to authorize</a>';
+        }
         
         // Testing the controller log
         \Controller::log('Keap Integration: ' . $email . ' sent to Keap using API',
