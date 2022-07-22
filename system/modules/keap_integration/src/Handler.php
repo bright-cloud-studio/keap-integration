@@ -11,31 +11,10 @@
 
 namespace KeapIntegration;
 
-
-/**
- * Class keap_integration
- *
- * @package KeapIntegration
- */
 class Handler
 {
-    /**
-     * Must be static because the loadLanguageFile hook call the method
-     * without an instance. so we need a static property here ...
-     *
-     * @var array
-     */
     protected static $arrUserOptions = array();
 
-    /**
-     * Send an email if a new user registers on the contao installation.
-     *
-     * @param int     $intId     The id of the new member.
-     *
-     * @param array   $arrData   The data of the new member.
-     *
-     * @return void
-     */
     public function newUserCreated($intId, $arrData, $objModule)
     {
         
@@ -43,44 +22,20 @@ class Handler
         self::$arrUserOptions       = $arrData;
         self::$arrUserOptions['id'] = $intId;
 
+		// STEP 1 - set up infusionsoft
         $infusionsoft = new \Infusionsoft\Infusionsoft(array(
             'clientId' => $objModule->keapCliendID,
             'clientSecret' => $objModule->keapClientSecret,
             'redirectUri' => $objModule->keapRedirectUrl,
         ));
 
-		// STEP TWO. IF WE HAVE A STORED TOKEN THEN USE IT
-        // If the serialized token is available in the session storage, we tell the SDK
-        // to use that token for subsequent requests.
-        /*
-        if (isset($_SESSION['token'])) {
-            $infusionsoft->setToken(unserialize($_SESSION['token']));
-        }
-        */
-        if($objModule->keapJSONToken != '') {
-        	$infusionsoft->setToken(unserialize($objModule->keapJSONToken));
-        }
+		// STEP 2 - if there us a token, apply it
+		if($objModule->keapJSONToken != '')
+			$infusionsoft->setToken($objModule->keapJSONToken);
 
-        // RETURNING AFTER BEING GIVEN PERMISSION. IF ALL GOES AS PLANNED, THIS WILL ONLY HIT ONCE
-        // If we are returning from Infusionsoft we need to exchange the code for an
-        // access token.
-        if (isset($_GET['code']) and !$infusionsoft->getToken()) {
-            $infusionsoft->requestAccessToken($_GET['code']);
-
-            // Save the serialized token to the current session for subsequent requests
-            $_SESSION['token'] = serialize($infusionsoft->getToken());
-            
-            $this->storeJSONToken($objModule, serialize($infusionsoft->getToken()))
-            // save our tokens for future use
-            $ourTokens = $infusionsoft->getToken();
-            $this->storeRefreshToken($objModule, $ourTokens->refreshToken);
-            $this->storeAccessToken($objModule, $ourTokens->accessToken);
-        }
 
         function add($infusionsoft, $email, $arrData)
         {
-            // build out the json data to send to Keap
-
             // DATA - Contact Type
             $contact_type = 'Website Lead - EFS Myths';
 
@@ -99,43 +54,28 @@ class Handler
             $lead_source_id = '19';
 
             // Entire Contact
-            //$contact = ['given_name' => $given_name, 'family_name' => $family_name, 'email_addresses' => [$email1], 'contact_type' => $contact_type, 'lead_source_id' => $lead_source_id];
             $contact = ['given_name' => $given_name, 'family_name' => $family_name, 'email_addresses' => [$email1]];
 
             return $infusionsoft->contacts()->create($contact);
         }
 
-		// STEP THREE - WE HAVE A TOKEN
+		// STEP 3 - WE HAVE A TOKEN
         if ($infusionsoft->getToken()) {
             try {
-
-                //$email = 'john.doe4@example.com';
                 $email = $arrData['email'];
                 try {
                     $cid = $infusionsoft->contacts()->where('email', $email)->first();
                 } catch (\Infusionsoft\InfusionsoftException $e) {
                     $cid = add($infusionsoft, $email, $arrData);
                 }
-
-            } catch (\Infusionsoft\TokenExpiredException $e) {
-                // If the request fails due to an expired access token, we can refresh
-                // the token and then do the request again.
-                $infusionsoft->refreshAccessToken();
-
-                $cid = add($infusionsoft);
             }
 
             $contact = $infusionsoft->contacts()->with('custom_fields')->find($cid->id);
 
             var_dump($contact->toArray());
-
-            // Save the serialized token to the current session for subsequent requests
-            $_SESSION['token'] = serialize($infusionsoft->getToken());
             
-        } else {
-            echo '<a href="' . $infusionsoft->getAuthorizationUrl() . '">Click here to authorize</a>';
-        }
-
+        } 
+        
         // Testing the controller log
         \Controller::log('Keap Integration: ' . $email . ' sent to Keap using API',
             __CLASS__ . '::' . __FUNCTION__,
@@ -148,7 +88,6 @@ class Handler
     public function accountActivated($member, $module)
     {
         // Do Stuff
-        
         
         // Testing the controller log
         \Controller::log('Keap Integration: Member Account Activated',
@@ -179,6 +118,5 @@ class Handler
             ->prepare("UPDATE `tl_module` SET `keapJSONToken` = '".$token."' WHERE `tl_module`.`id` = ".$objModule->id.";")
             ->execute($strType);
     }
-    
     
 }
