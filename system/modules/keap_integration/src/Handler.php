@@ -68,7 +68,12 @@ class Handler
                 } catch (\Infusionsoft\InfusionsoftException $e) {
                     $cid = add($infusionsoft, $email, $arrData);
                 }
-            }
+            } catch (\Infusionsoft\TokenExpiredException $e) {
+		// our token is expired
+		echo "TOKEN EXPIRED';
+		//$infusionsoft->refreshAccessToken();
+		//$cid = add($infusionsoft);
+	    }
 
             $contact = $infusionsoft->contacts()->with('custom_fields')->find($cid->id);
 
