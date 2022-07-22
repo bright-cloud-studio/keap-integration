@@ -70,7 +70,7 @@ class Handler
                 }
             } catch (\Infusionsoft\TokenExpiredException $e) {
 		// our token is expired
-		echo "TOKEN EXPIRED';
+		echo "TOKEN EXPIRED";
 		//$infusionsoft->refreshAccessToken();
 		//$cid = add($infusionsoft);
 	    }
