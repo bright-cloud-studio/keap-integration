@@ -1,6 +1,6 @@
 <?php
 
-namespace KeapIntegration\EventListener;
+namespace KeapIntegration;
 
 use Contao\System;
 
