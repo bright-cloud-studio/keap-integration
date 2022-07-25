@@ -1,10 +1,10 @@
 <?php
 
-namespace KeapIntegration\EventListener;
+namespace KeapIntegration;
 
 use Contao\System;
 
-class CronListener extends System
+class EventListener extends System
 {
     public function refreshKeapToken(): void
     {
