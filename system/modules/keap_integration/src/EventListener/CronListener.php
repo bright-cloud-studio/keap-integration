@@ -1,5 +1,7 @@
 <?php
 
+namespace KeapIntegration\EventListener;
+
 use Contao\System;
 
 class CronListener extends System
