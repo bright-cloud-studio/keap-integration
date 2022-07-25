@@ -60,9 +60,8 @@ class Handler
             return $infusionsoft->contacts()->create($contact);
         }
 
-		// STEP 3 - WE HAVE A TOKEN
+	// STEP 3 - WE HAVE A TOKEN
         if ($infusionsoft->getToken()) {
-            echo 'WE HAVE A TOKEN';
             try {
                 $email = $arrData['email'];
                 try {
@@ -72,7 +71,6 @@ class Handler
                 }
             } catch (\Infusionsoft\TokenExpiredException $e) {
     		// our token is expired
-    		echo "TOKEN EXPIRED";
     		$infusionsoft->refreshAccessToken();
     		$cid = add($infusionsoft);
 	    }
@@ -83,8 +81,6 @@ class Handler
             
             // Save the serialized token to the current session for subsequent requests
             $_SESSION['token'] = serialize($infusionsoft->getToken());
-        } else {
-            echo '<a href="' . $infusionsoft->getAuthorizationUrl() . '">Click here to authorize</a>';
         }
         
         // Testing the controller log
