@@ -14,6 +14,6 @@
 /* Register Classes */
 ClassLoader::addClasses(array
 (
-	'KeapIntegration\Handler' => 'system/modules/keap_integration/src/Handler.php'
+	'KeapIntegration\Handler' => 'system/modules/keap_integration/src/Handler.php',
 	'KeapIntegration\EventListener' => 'system/modules/keap_integration/src/EventListener.php'
 ));
