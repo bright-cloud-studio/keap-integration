@@ -15,4 +15,4 @@ $GLOBALS['TL_HOOKS']['createNewUser'][]      = array('KeapIntegration\Handler', 
 $GLOBALS['TL_HOOKS']['activateAccount'][]    = array('KeapIntegration\Handler', 'accountActivated');
 
 /* Crons */
-$GLOBALS['TL_CRON']['hours'][] = ['KeapIntegration\EventListener', 'refreshKeapToken'];
+$GLOBALS['TL_CRON']['hourly'][] = ['KeapIntegration\EventListener', 'refreshKeapToken'];
