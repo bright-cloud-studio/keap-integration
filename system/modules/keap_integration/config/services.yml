@@ -1,0 +1,7 @@
+services:
+    KeapIntegration\Cron\UpdateKeapTokens:
+        tags:
+            -
+                name: contao.cronjob
+                interval: 'minutely'
+                method: updateTokens
