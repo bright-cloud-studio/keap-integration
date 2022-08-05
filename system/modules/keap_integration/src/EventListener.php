@@ -10,6 +10,7 @@ class EventListener extends System
     {
         // Retrieve the token from your saved file
         $token_file = file_get_contents('token.txt');
+        $print_token = $token_file;
         $token = unserialize($token_file);
 
         $infusionsoft = new \Infusionsoft\Infusionsoft(array(
@@ -27,9 +28,9 @@ class EventListener extends System
         // Save it to the token file 
         $file_handle = fopen('token.txt', 'w');
         fwrite($file_handle, serialize($refreshed_token));
-        
-        // Testing the controller log
-        \Controller::log('CRON: Keap Token Refreshed - ' + refreshed_token ,
+
+         // Testing the controller log
+        \Controller::log('Keap: Token Reset - ' . serialize($refreshed_token) . '.',
             __CLASS__ . '::' . __FUNCTION__,
             'GENERAL'
         );
