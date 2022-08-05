@@ -14,7 +14,7 @@
     "require":{
         "php": "^7.4",
         "contao/core-bundle": "^4.9",
-        "infusionsoft/php-sdk": "1.5.2"
+        "infusionsoft/php-sdk": "1.5.0"
     },
     "require-dev": {
         "contao/manager-plugin": "^2.0"
