@@ -27,5 +27,11 @@ class EventListener extends System
         // Save it to the token file 
         $file_handle = fopen('token.txt', 'w');
         fwrite($file_handle, serialize($refreshed_token));
+        
+        // Testing the controller log
+        \Controller::log('CRON: Keap Token Refreshed - ' . refreshed_token ,
+            __CLASS__ . '::' . __FUNCTION__,
+            'GENERAL'
+        );
     }
 }
