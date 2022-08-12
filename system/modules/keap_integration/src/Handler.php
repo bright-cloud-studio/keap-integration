@@ -50,12 +50,18 @@ class Handler
 
             // DATA - Given Name
             $given_name =  $arrData['firstname'];
+		
+            // DATA - Lead Source ID
+            $lead_source_id =  67;
+
+            // DATA - Contact Type
+            $contact_type =  'Prospect';
 
             // DATA - Lead Source ID
             $lead_source_id = '19';
 
             // Entire Contact
-            $contact = ['given_name' => $given_name, 'family_name' => $family_name, 'email_addresses' => [$email1]];
+            $contact = ['contact_type' => $contact_type, 'lead_source_id' => $lead_source_id, 'given_name' => $given_name, 'family_name' => $family_name, 'email_addresses' => [$email1]];
 
             return $infusionsoft->contacts()->create($contact);
         }
