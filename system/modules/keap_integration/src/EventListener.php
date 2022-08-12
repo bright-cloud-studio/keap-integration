@@ -14,9 +14,9 @@ class EventListener extends System
         $token = unserialize($token_file);
 
         $infusionsoft = new \Infusionsoft\Infusionsoft(array(
-          'clientId'     => 'IoAJ9zFbZnszZHWkTxp7vFj5zg0TII2g',
-          'clientSecret' => 'xS3oRvWe5kgcXjdG',
-          'redirectUri'  => 'https://framework.brightcloudstudioserver.com/keap_auth.php',
+          'clientId'     => '2iqwVzl9wpZCxxpaUAyVOD819jXVIV1K',
+          'clientSecret' => 'dRn6D94SH5TRUZVM',
+          'redirectUri'  => 'https://epsteinfinancial.com/keap_auth.php',
         ));
 
         $infusionsoft->setToken($token);
