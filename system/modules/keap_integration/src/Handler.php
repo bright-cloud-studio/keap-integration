@@ -27,9 +27,9 @@ class Handler
     	$token = unserialize($token_file);
     
     	$infusionsoft = new \Infusionsoft\Infusionsoft(array(
-    		'clientId'     => 'IoAJ9zFbZnszZHWkTxp7vFj5zg0TII2g',
-    		'clientSecret' => 'xS3oRvWe5kgcXjdG',
-    		'redirectUri'  => 'https://framework.brightcloudstudioserver.com/registration.html',
+    		'clientId'     => '2iqwVzl9wpZCxxpaUAyVOD819jXVIV1K',
+    		'clientSecret' => 'dRn6D94SH5TRUZVM',
+    		'redirectUri'  => 'https://www.epsteinfinancial.com/registration-page.html',
     	));
     
     	$infusionsoft->setToken($token);
@@ -77,7 +77,7 @@ class Handler
 
             $contact = $infusionsoft->contacts()->with('custom_fields')->find($cid->id);
 
-            var_dump($contact->toArray());
+            //var_dump($contact->toArray());
             
             // Save the serialized token to the current session for subsequent requests
             $_SESSION['token'] = serialize($infusionsoft->getToken());
