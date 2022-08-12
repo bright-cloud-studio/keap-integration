@@ -22,7 +22,7 @@ class Handler
         self::$arrUserOptions       = $arrData;
         self::$arrUserOptions['id'] = $intId;
 
-	// Retrieve the token from your saved file
+	    // Retrieve the token from your saved file
     	$token_file = file_get_contents('token.txt');
     	$token = unserialize($token_file);
     
@@ -52,21 +52,19 @@ class Handler
             $given_name =  $arrData['firstname'];
 		
             // DATA - Lead Source ID
-            $lead_source_id =  67;
+            //$lead_source_id =  67;
 
             // DATA - Contact Type
-            $contact_type =  'Prospect';
-
-            // DATA - Lead Source ID
-            $lead_source_id = '19';
+            //$contact_type =  'Prospect';
 
             // Entire Contact
-            $contact = ['contact_type' => $contact_type, 'lead_source_id' => $lead_source_id, 'given_name' => $given_name, 'family_name' => $family_name, 'email_addresses' => [$email1]];
+            //$contact = ['contact_type' => $contact_type, 'lead_source_id' => $lead_source_id, 'given_name' => $given_name, 'family_name' => $family_name, 'email_addresses' => [$email1]];
+            $contact = ['given_name' => $given_name, 'family_name' => $family_name, 'email_addresses' => [$email1]];
 
             return $infusionsoft->contacts()->create($contact);
         }
 
-	// STEP 3 - WE HAVE A TOKEN
+	    // STEP 3 - WE HAVE A TOKEN
         if ($infusionsoft->getToken()) {
             try {
                 $email = $arrData['email'];
@@ -81,8 +79,28 @@ class Handler
     		$cid = add($infusionsoft);
 	    }
 
-            $contact = $infusionsoft->contacts()->with('custom_fields')->find($cid->id);
-
+            //$contact = $infusionsoft->contacts()->with('custom_fields')->find($cid->id);
+            
+            // update the Contact with the rest of the details
+            $contact = $infusionsoft->contacts()->find($cid->id);
+            $contact->given_name = $arrData['firstname'];
+            $contact->family_name = $arrData['lastname'];
+            $contact->contact_type = 'Prospect'
+            $contact->lead_source_id = 67;
+            
+            // DATA - Address
+            $address = new \stdClass;
+            $address->field = 'BILLING';
+            $address->line1 = $arrData['street'];
+            $address->locality = $arrData['city'];
+            $address->region = $arrData['state'];
+            $address->postal_code = $arrData['postal'];
+            $address->zip_code = $arrData['postal'];
+            
+            $contact->addresses = [$address];
+            
+            $contact->save();
+            
             //var_dump($contact->toArray());
 		
             // Add our user to the requested campaign
