@@ -84,6 +84,11 @@ class Handler
             $contact = $infusionsoft->contacts()->with('custom_fields')->find($cid->id);
 
             //var_dump($contact->toArray());
+		
+	    // attempting to add to campaign, no idea what integration or call name are
+            $integration = 'suz811';
+            $callName = 'MythsAPICall';
+            $infusionsoft->funnels()->achieveGoal($integration, $callName, $cid->id);
             
             // Save the serialized token to the current session for subsequent requests
             $_SESSION['token'] = serialize($infusionsoft->getToken());
