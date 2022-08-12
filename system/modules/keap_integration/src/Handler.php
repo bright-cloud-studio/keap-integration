@@ -97,7 +97,7 @@ class Handler
             $address->postal_code = $arrData['postal'];
             $address->zip_code = $arrData['postal'];
             
-            $contact->addresses = [$address];
+            //$contact->addresses = [$address];
             
             $contact->save();
             
