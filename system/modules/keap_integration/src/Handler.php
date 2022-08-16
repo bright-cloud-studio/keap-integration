@@ -52,14 +52,34 @@ class Handler
             $given_name =  $arrData['firstname'];
 		
             // DATA - Lead Source ID
-            //$lead_source_id =  67;
+            $lead_source_id =  67;
 
             // DATA - Contact Type
-            //$contact_type =  'Prospect';
+            $contact_type =  'Prospect';
+            
+            $addr = new \stdClass;
+            $addr->field = 'BILLING';
+            $addr->line1 = $arrData['street'];
+            $addr->region = $arrData['state'];
+            $addr->line2 = "";
+            $addr->locality = $arrData['city'];
+            $addr->postal_code = $arrData['postal'];
+            $addr->zip_code = $arrData['postal'];
+            $addr->zip_four = "";
+            $addr->country_code = "USA";
+            
+            
+            $phone = new \stdClass;
+            $phone->number = $arrData['phone'];
+            $phone->extension = "";
+            $phone->field = 'PHONE1';
+            $phone->type = 'Work';
+            
+            
 
             // Entire Contact
-            //$contact = ['contact_type' => $contact_type, 'lead_source_id' => $lead_source_id, 'given_name' => $given_name, 'family_name' => $family_name, 'email_addresses' => [$email1]];
-            $contact = ['given_name' => $given_name, 'family_name' => $family_name, 'email_addresses' => [$email1]];
+            $contact = ['contact_type' => $contact_type, 'lead_source_id' => $lead_source_id, 'given_name' => $given_name, 'family_name' => $family_name, 'email_addresses' => [$email1], 'addresses' => [$addr], 'phone_numbers' => [$phone]];
+            //$contact = ['given_name' => $given_name, 'family_name' => $family_name, 'email_addresses' => [$email1]];
 
             return $infusionsoft->contacts()->create($contact);
         }
@@ -79,34 +99,16 @@ class Handler
     		$cid = add($infusionsoft);
 	    }
 
-            //$contact = $infusionsoft->contacts()->with('custom_fields')->find($cid->id);
-            
-            // update the Contact with the rest of the details
-            $contact = $infusionsoft->contacts()->find($cid->id);
-            $contact->given_name = $arrData['firstname'];
-            $contact->family_name = $arrData['lastname'];
-            $contact->contact_type = 'Prospect'
-            $contact->lead_source_id = 67;
-            
-            // DATA - Address
-            $address = new \stdClass;
-            $address->field = 'BILLING';
-            $address->line1 = $arrData['street'];
-            $address->locality = $arrData['city'];
-            $address->region = $arrData['state'];
-            $address->postal_code = $arrData['postal'];
-            $address->zip_code = $arrData['postal'];
-            
-            //$contact->addresses = [$address];
-            
-            $contact->save();
-            
             //var_dump($contact->toArray());
-		
+
             // Add our user to the requested campaign
             $integration = 'suz811';
             $callName = 'MythsAPICall';
             $infusionsoft->funnels()->achieveGoal($integration, $callName, $cid->id);
+            
+            // Add custom tag: YOD Live Stream June 2022
+            $tag_ids = [165,127];
+            $infusionsoft->contacts()->find($cid->id)->addTags($tag_ids);
             
             
             // Save the serialized token to the current session for subsequent requests
