@@ -1,5 +1,13 @@
 <?
 
+/**
+ * Bright Cloud Studio's Keap Integration
+ *
+ * @copyright  2022 Bright Cloud Studio
+ * @package    keap_integration
+ * @license    GNU/LGPL
+ * @filesource
+ */
 
 /* Add fields to tl_user */
 $GLOBALS['TL_DCA']['tl_member']['fields']['state'] = array
