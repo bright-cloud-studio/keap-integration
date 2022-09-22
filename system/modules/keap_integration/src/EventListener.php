@@ -8,6 +8,13 @@ class EventListener extends System
 {
     public function refreshKeapToken(): void
     {
+       
+        // Testing the controller log
+        \Controller::log('Keap: Attempting Refresh',
+            __CLASS__ . '::' . __FUNCTION__,
+            'GENERAL'
+        );
+       
         // Retrieve the token from your saved file
         $token_file = file_get_contents('token.txt');
         $print_token = $token_file;
